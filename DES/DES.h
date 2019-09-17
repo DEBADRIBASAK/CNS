@@ -7,7 +7,6 @@ using namespace std;
 class DES
 {
 private:
-	// wait
 	string key;
 	int initial_perm[64]=  
     {   58,50,42,34,26,18,10,2, 
@@ -126,13 +125,13 @@ private:
     }; 
     vector<string> subkeys;
     string perm_key;
-    //ofstream cout;
+    ofstream cout;
 public:
 	DES(string key)
 	{
 		this->key = key;
         perm_key = key;
-        //cout.open("log.txt",ios::out);
+        cout.open("log.txt",ios::out);
 	}
 	void circular_left_shift(int shift)
 	{
@@ -216,7 +215,7 @@ public:
     string substitute(string st)
     {
         string k(4,0);
-        int i = 0,j = 7;//,ind = 0;
+        int i = 0,j = 7;
         for(int l=0;l<8;l++)
         {
             int helper = 0;
@@ -275,12 +274,10 @@ public:
         {
             string k = key_scheduling(i);
             subkeys.push_back(k);
-            //plain_text = round(plain_text,key);
         }
     }
-    void log(string p)//,int no)
+    void log(string p)
     {
-        //cout<<"Round"
         for(int i=0;i<p.length();i++)
         {
             cout<<(int)p[i]<<" ";
@@ -288,46 +285,27 @@ public:
         cout<<endl;
     }
 	string encrypt(string plain_text)
-	{
-        cout<<"plain text = "<<plain_text<<endl;
+	{    
         plain_text = perm(plain_text,initial_perm,64);
-        cout<<"After intial permutation = ";
-        ///<<plain_text<<endl;
-        log(plain_text);
         for(int i=1;i<=16;i++)
         {
             plain_text = round(plain_text,subkeys[i-1],i-1);
-            cout<<"Round: "<<i<<" = ";//<<plain_text<<endl;
-            log(plain_text);
         }     
         plain_text = perm(plain_text,final_perm,64);
-        cout<<"cipher text = ";//<<plain_text<<endl;
-        log(plain_text);
         return plain_text;
 	}
     string decrypt(string plain_text)
     {
-        //cout<<"Hello\n";
-        cout<<"cipher text = ";//<<plain_text<<endl;
-        log(plain_text);
         plain_text = perm(plain_text,initial_perm,64);
-        cout<<"After intial permutation = ";//<<plain_text<<endl;
-        log(plain_text);
         for(int i=16;i>=1;i--)
         {
             plain_text = round(plain_text,subkeys[i-1],16-i);
-            cout<<"Round: "<<i<<" = ";//<<plain_text<<endl;
-           // print(plain_text);
         }     
         plain_text = perm(plain_text,final_perm,64);
-        cout<<"plain text = "<<plain_text<<endl;
-        //print(plain_text);
         return plain_text;
     }
     void test(string plain_text)
     {
-        cout<<"plain text = "<<plain_text<<endl;
-        //log(plain_text);
         plain_text = perm(plain_text,initial_perm,64);
         cout<<"After intial permutation = ";//<<plain_text<<endl;
         log(plain_text);
@@ -336,11 +314,7 @@ public:
             plain_text = round(plain_text,subkeys[i-1],i-1);
             cout<<"Round: "<<i<<" = ";//<<plain_text<<endl;
             log(plain_text);
-        }     
-        //  for(int i=0;i<8;i++)
-        // {
-        //     cout<<(int)plain_text[i]<<" ";
-        // }
+        } 
         plain_text = perm(plain_text,final_perm,64);
         cout<<"cipher text = ";//<<plain_text<<endl;
        log(plain_text);
@@ -349,10 +323,6 @@ public:
          plain_text = perm(plain_text,initial_perm,64);
           cout<<"After intial permutation = ";//<<plain_text<<endl;
           log(plain_text);
-        //   for(int i=0;i<8;i++)
-        // {
-        //     cout<<(int)plain_text[i]<<" ";
-        // }
         cout<<endl;
         for(int i=16;i>=1;i--)
         {
@@ -362,7 +332,6 @@ public:
         }     
          plain_text = perm(plain_text,final_perm,64);
          cout<<"plain text = "<<plain_text<<endl;
-         //log(plain_text);
     }
 };
 
