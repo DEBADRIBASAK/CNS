@@ -77,6 +77,7 @@ private:
         7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8, 
         2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11 
     }}; 
+    
     int per[32]= 
     {   16,7,20,21, 
         29,12,28,17, 
@@ -125,13 +126,13 @@ private:
     }; 
     vector<string> subkeys;
     string perm_key;
-    ofstream cout;
+    //ofstream cout;
 public:
 	DES(string key)
 	{
 		this->key = key;
         perm_key = key;
-        cout.open("log.txt",ios::out);
+       // cout.open("log.txt",ios::out);
 	}
 	void circular_left_shift(int shift)
 	{
