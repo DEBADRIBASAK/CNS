@@ -46,7 +46,6 @@ public:
 	}
 	void generate()
 	{
-		printf("degree = %d\nbin = %04X\n",degree,bin);
 		m[-1] = 0;rev_m[0] = -1;
 		for(int i=0;i<degree;i++)
 		{
@@ -63,11 +62,6 @@ public:
 			}
 			rev_m[m[i]] = i;
 		}
-		for(map<int,int>::iterator itr=m.begin();itr!=m.end();itr++)
-		{
-			printf("%d = %X\n",itr->first,itr->second);
-		}
-		cout<<"unique values = "<<rev_m.size()<<endl;
 	}
 	int add(string a,string b)
 	{
@@ -125,13 +119,11 @@ public:
 	}
 	int find_degree(int a)
 	{
-		//cout<<"a = "<<(int)a<<endl;
 		if(a==0)
 			return 0;
 		int i=0;
 		while((1<<i)<a)
 		{
-			//cout<<"*";
 			i++;
 		}
 		return ((1<<i)==a)?i:i-1;
@@ -155,9 +147,8 @@ public:
 	}
 	int mul_inv(int a)
 	{
-		//cout<<"hey\n";
-		int degA;// = find_degree(a);
-		int degB;// = degree;
+		int degA;
+		int degB;
 		int b = bin;
 		int x0 = 1,y0 = 0,x1 = 0,y1 = 1,q,r,t;
 		while(b!=0)

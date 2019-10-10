@@ -96,32 +96,23 @@ public:
 		{
 			for(int j=0;j<4;j++)
 			{
-				//printf("%c,%04X = ",block[i][j],(int)block[i][j]);
 				block[i][j] = substitute_bits(block[i][j],inv);
-				//printf("%04X\n",(int)block[i][j]);
 			}
 		}
 	}
 	void shift_n_row(unsigned char* arr,int n,int k,bool left=true)
 	{
-		// for(int i=0;i<n;i++)
-		// {
-		// 	printf("%c  ",arr[i]);
-		// }
-		// printf("\n");
 		if(!left)
 			k = n-k;
-		//if(left)
-		//{
-			for(int i=0;i<k/2;i++)
-			{
-				swap(arr[i],arr[k-i-1]);
-			}
-			for(int i=k;i<k+(n-k)/2;i++)
-			{
-				swap(arr[i],arr[n+k-i-1]);
-			}
-		//}
+		for(int i=0;i<k/2;i++)
+		{
+			swap(arr[i],arr[k-i-1]);
+		}
+		for(int i=k;i<k+(n-k)/2;i++)
+		{
+			swap(arr[i],arr[n+k-i-1]);
+		}
+		
 		for(int i=0;i<n/2;i++)
 		{
 			swap(arr[i],arr[n-i-1]);
@@ -162,10 +153,7 @@ public:
 		{
 			for(int j=0;j<4;j++)
 			{
-				//cout<<block[j][i]<<"^"<<round_keys[4*round_no+i][j]<<" = ";//<<(block[j][i]^round_keys[4*round_no+i][j])<<endl;
-				//printf("%04X ^ %04X",block[j][i],round_keys[4*round_no+i][j]);
 				block[j][i]^=round_keys[4*round_no+i][j];
-				//cout<<block[j][i]<<endl;
 			}
 		}
 	}
@@ -212,18 +200,9 @@ public:
 			for(int l=0;l<4;l++)
 			round_keys[i][l] = temp[l]^round_keys[i-4][l];
 		}
-
-		// cout<<"Keys = "<<endl;
-		// for(int i=0;i<44;i++)
-		// {
-		// 	for(int j=0;j<4;j++)
-		// 	cout<<round_keys[i][j]<<" ";
-		// cout<<endl;
-		// }
 	}
 	void print(int round_no,unsigned char** block)
 	{
-		//cout<<"=========================================\n\n";
 		cout<<"Round "<<round_no<<" = ";
 		for(int i=0;i<4;i++)
 		{
@@ -231,14 +210,12 @@ public:
 			{
 				cout<<(int)block[j][i]<<" ";
 			}
-			//cout<<endl;
 		}
-		//cout<<"\n=========================================\n\n";
 		cout<<endl;
 	}
 	string encrypt(string plain_text)
 	{
-		cout<<"Encrypt = "<<endl;
+		//cout<<"Encrypt = "<<endl;
 		unsigned char **block;//[4][4];
 		block = (unsigned char**)malloc(sizeof(unsigned char*)*4);
 		for(int l=0;l<4;l++)
@@ -250,7 +227,7 @@ public:
 				block[j][i] = plain_text[i*4+j];
 			}
 		}
-		print(0,block);
+		//print(0,block);
 		add_round_key(0,block);
 		for(int i=1;i<no_of_rounds+1;i++){
 			sub_bit(block);
@@ -260,7 +237,7 @@ public:
 				block = mix_col(block);
 			}
 			add_round_key(i,block);
-			print(i,block);
+			//print(i,block);
 		}
 		for(int i=0;i<4;i++)
 		{
@@ -273,7 +250,7 @@ public:
 	}
 	string decrypt(string plain_text)
 	{
-		cout<<"Decrypt = "<<endl;
+		//cout<<"Decrypt = "<<endl;
 		unsigned char **block;//[4][4];
 		block = (unsigned char**)malloc(sizeof(unsigned char*)*4);
 		for(int l=0;l<4;l++)
@@ -285,7 +262,7 @@ public:
 				block[j][i] = plain_text[i*4+j];
 			}
 		}
-		print(10,block);
+		//print(10,block);
 		add_round_key(10,block);
 		for(int i=no_of_rounds-1;i>=0;i--){
 			shift_rows(block,false);
@@ -293,7 +270,7 @@ public:
 			add_round_key(i,block);
 			if(i!=0)
 			block = mix_col(block,false);
-		print(i,block);
+		//print(i,block);
 		}
 		for(int i=0;i<4;i++)
 		{

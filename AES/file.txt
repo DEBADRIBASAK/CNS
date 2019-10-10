@@ -1,0 +1,34 @@
+We would like to thank the Google Brain team for providing an intellectual
+environment where Ian could devote a tremendous amount of time to writing this
+book and receive feedback and guidance from colleagues. We would especially like
+to thank Ian's former manager, Greg Corrado, and his current manager, Samy
+Bengio, for their support of this project. Finally, we would like to thank Geoffrey
+Hinton for encouragement when writing was difficult.
+A A set
+R The set of real numbers
+{ 0 , 1 }
+The set containing 0 and 1
+{ 0 , 1 , . . . , n }
+The set of all integers between 0 and n
+[ a, b ] The real interval including a and b
+( a, b ] The real interval excluding a but including b
+A \ B Set subtraction, i.e., the set containing the ele-
+ments of A that are not in B
+G
+A graph
+P a G (x i )
+The parents of x i in G
+Indexing
+a i
+Element i of vector a, with indexing starting at 1
+a −i All elements of vector a except for element i
+A i,j Element i, j of matrix A
+A i,: Row i of matrix A
+A :,i Column i of matrix A
+A i,j,k Element ( i, j, k ) of a 3-D tensor A
+A : , : ,i 2-D slice of a 3-D tensor
+a i
+Element i of the random vector a
+Linear Algebra Operations
+A  Transpose of matrix A
+A + Moore-Penrose pseudoinverse of A

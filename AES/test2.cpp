@@ -4,13 +4,10 @@ int main()
 {
 	string key="abcdabcdabcdabcd";
 	AES encrypter(key);
-	//cout<<"Here = "<<encrypter.substitute_bits(0x00)<<endl;
 	for(int i=0;i<16;i++)
 	{
 		for(int j=0;j<16;j++)
 		{
-			//cout<<"Here = "<<(unsigned char)((i*16+j))<<endl;
-			//encrypter.substitute_bits((unsigned char)((i*16+j)));
 			printf("%02X  ",encrypter.substitute_bits(i*16+j));
 		}
 		cout<<endl;
@@ -20,8 +17,6 @@ int main()
 	{
 		for(int j=0;j<16;j++)
 		{
-			//cout<<"Here = "<<(unsigned char)((i*16+j))<<endl;
-			//encrypter.substitute_bits((unsigned char)((i*16+j)));
 			printf("%02X  ",encrypter.substitute_bits(i*16+j,true));
 		}
 		cout<<endl;
