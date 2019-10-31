@@ -31,7 +31,6 @@ int main(int argc, char const *argv[])
 
 	PA = G*xA;
 	PB = G*xB;
-	//cout<<"nA = "<<xA<<"nB = "<<xB<<endl;
 	gmp_printf("nA = %Zd\nnB = %Zd\n",xA,xB);
 	cout<<"PA = "<<PA<<endl<<"PB = "<<PB<<endl;
 

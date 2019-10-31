@@ -7,12 +7,12 @@ using namespace std;
 
 // this ECC curve is over Zp
 
+#define inf "6277101735386680763835789423207666416083908700390324961279000000"
 
 
 void mul_inv(mpz_t inv,mpz_t a1,mpz_t p1)
 {
 	mpz_t x0,x1,y0,y1,q,g,r,t,a,p;
-	//int x0 = 1,x1 = 0,y0 = 0,y1 = 1,q,g,r,t;
 	mpz_inits(x0,x1,y0,y1,q,g,r,t,a,p,NULL);
 	mpz_set(a,a1);
 	mpz_set(p,p1);
@@ -22,10 +22,8 @@ void mul_inv(mpz_t inv,mpz_t a1,mpz_t p1)
 	mpz_set_ui(y1,1);
 	while(mpz_cmp_ui(p,1)!=0)
 	{
-		//gmp_printf("a = %Zd p = %Zd\n",a,p);
 		mpz_mod(r,a,p);
 		mpz_div(q,a,p);
-		//gmp_printf("q = %Zd r = %Zd\n",q,r);
 		mpz_set(a,p);
 		mpz_set(p,r);
 		mpz_set(t,x1);
@@ -50,36 +48,29 @@ class Point
 		Point()
 		{
 			mpz_inits(a,b,x,y,p,INF,NULL);
+			mpz_set_str(INF,inf,10);
 		}
 		Point(const char* a1,const char* b1,const char* a,const char* b,const char* p,int bA=10,int bB=10,int bX=10,int bY=10,int bP=10)//,bool negA=false,bool negB=false)
 		{
-			//x = a1;y = b1;this->p = p;this->a = a;this->b = b;
+
 			mpz_inits(this->a,this->b,this->x,this->y,this->p,this->INF,NULL);
 			mpz_set_str(x,a1,bX);
 			mpz_set_str(y,b1,bY);
 			mpz_set_str(this->a,a,bA);
-				// if(negA)
-				// mpz_mul_ui(this->a,this->a,-1);
 			mpz_set_str(this->b,b,bB);
-			// if(negB)
-			// 	mpz_mul_ui(this->b,this->b,-1);
 			mpz_set_str(this->p,p,bP);
-			mpz_set_str(INF,"6277101735386680763835789423207666416083908700390324961279000000",10);
+			mpz_set_str(INF,inf,10);
 		}
 		Point(mpz_t a1,mpz_t b1,mpz_t a,mpz_t b,mpz_t p)
 		{
-			//x = a1;y = b1;this->p = p;this->a = a;this->b = b;
+
 			mpz_inits(this->a,this->b,this->x,this->y,this->p,this->INF,NULL);
 			mpz_set(x,a1);
 			mpz_set(y,b1);
-			 mpz_set(this->a,a);
-			 //if(negA)
-			// 	mpz_mul_ui(this->a,this->a,-1);
+			mpz_set(this->a,a);
 			mpz_set(this->b,b);
-			// if(negB)
-			// 	mpz_mul_ui(this->b,this->b,-1);
 			mpz_set(this->p,p);
-			mpz_set_str(INF,"6277101735386680763835789423207666416083908700390324961279000000",10);
+			mpz_set_str(INF,inf,10);
 		}
 		bool isInf()
 		{
@@ -128,7 +119,6 @@ class Point
 			}
 			else
 			{
-				//gmp_printf(" den = %Zd\nnum = %Zd\n",den,num);
 				mpz_t xr,yr;
 				mpz_inits(xr,yr,NULL);
 				mul_inv(t,den,p);
@@ -154,7 +144,7 @@ class Point
 			mpz_t m;
 			mpz_inits(m,NULL);
 			mpz_set(m,m1);
-			Point p;//(0,0,a,b,p);
+			Point p;
 			p = *this;
 			while(mpz_cmp_ui(m,1)!=0)
 			{
@@ -167,47 +157,13 @@ class Point
 		{
 			if(p.isInf())
 			{
-				out<<"( INF , INF )";//<<endl;
+				out<<"( INF , INF )";
 			}
 			else
 			gmp_printf("( %Zd , %Zd )",p.x,p.y);
 			return out;
 		}
 	};
-
-// class ECC
-// {
-
-// private:
-// 	int a,b,p;
-// private:
-// 	vector<Point> points;
-// public:
-// 	ECC(int a,int b,int p) // p is a prime
-// 	{
-// 		this->a = a;
-// 		this->b = b;
-// 		this->p = p;int x,y;
-// 		for(int i=0;i<p;i++)
-// 		{
-// 			for(int j=0;j<p;j++)
-// 			{
-// 				y = (j*j)%p;
-// 				x = ((i*i*i)%p+((a%p)*i)%p+b%p)%p;
-// 				if(y==x)
-// 					points.push_back(Point(i,j,a,b,p));
-// 			}
-// 		}
-// 	}
-// 	void print_points()
-// 	{
-// 		for(int i=0;i<points.size();i++)
-// 		{
-// 			cout<<points[i]<<endl;
-// 		}
-// 	}
-
-// };
 
 
 #endif
