@@ -189,13 +189,13 @@ public:
 	string compress()
 	{
 		string k = string({0,0,0,0,0,0});
-        char c = 1;
+        	char c = 1;
 		for(int i=0;i<48;i++)
 		{
 			if(key[(key_comp[i]-1)/8]&(c<<((8-((key_comp[i]-1)%8))%8)))
 			k[i/8]|=(c<<((8-(i%8))%8));
 		}
-        return k;
+        	return k;
 	}
 	string key_scheduling(int round_no)
 	{
